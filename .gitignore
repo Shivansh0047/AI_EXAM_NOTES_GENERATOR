@@ -1,0 +1,12 @@
+# Ignore backend dependencies and secrets
+server/node_modules/
+server/.env
+server/dist/
+
+# Ignore frontend dependencies and builds (for when you build the client later)
+client/node_modules/
+client/dist/
+client/.env
+
+# OS specific files
+*.DS_Store
