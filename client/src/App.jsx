@@ -1,13 +1,22 @@
-import React from 'react'
-import {Route, Routes} from 'react-router-dom'
+import React, { useEffect } from 'react'
+import {Navigate, Route, Routes} from 'react-router-dom'
 import Home from './pages/Home'
 import Auth from './pages/Auth'
+import { getCurrentUser } from './services/api.js'
+import { useDispatch, useSelector } from 'react-redux'
+export const serverUrl = "http://localhost:8000" // where server is, remomber we have alloweed cors to reverive req fomr frontend
 
 function App() {
+  const dispatch = useDispatch()
+  useEffect(()=>{ // Whenever we entre inside App, DOM is loaded or if user data is chnaged and getCurrentUser is called
+    getCurrentUser(dispatch)
+  },[dispatch])
+
+  const {userData} = useSelector((state) => state.user) // Access userdata stored in state
   return (
     <Routes>
-      <Route path='/' element={<Home/>}/>
-      <Route path='/auth' element={<Auth />}/>
+      <Route path='/' element={userData? <Home/>:<Navigate to="/auth" replace/>}/>
+      <Route path='/auth' element={userData? <Navigate to="/" replace/>:<Auth />}/>
     </Routes>
   )
 }

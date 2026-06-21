@@ -1,15 +1,33 @@
 import express from "express"
 import dotenv from "dotenv"
 import connectDb from "./utils/connectDb.js"
+import authRouter from "./routes/auth.route.js"
+import cookieParser from "cookie-parser"
+import cors from "cors" // for maintaining conectivity between forntend and backend
+import userRouter from "./routes/user.route.js"
 dotenv.config() // inject .env in index.js itself so we dont have to use it anywhere else
 
 
 const app = express()
+app.use(cors(
+    {origin: "http://localhost:5173", // req form which url (in our case forntend), only this url req is allowed
+         credentials: true, // allows cookies
+         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"] // can use these methods
+    }
+
+))
+app.use(express.json()) // All data will be parsed in jsons
+app.use(cookieParser()) // Token are correctly stored in the form of cookies
+
 const PORT = process.env.PORT || 5000
 
 app.get("/",(req,res) => {
     res.json({message:"AI_EXAM_NOTES_GENERATOR Backend running"})
 })
+
+app.use("/api/auth", authRouter)
+app.use("/api/user", userRouter)
+
 app.listen(PORT, () =>{
     console.log(`Server running on port ${PORT}`)
     connectDb()

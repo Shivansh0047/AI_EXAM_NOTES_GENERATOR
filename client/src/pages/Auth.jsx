@@ -1,8 +1,29 @@
 import React from 'react'
 import { motion } from 'motion/react'
 import { FcGoogle } from "react-icons/fc";
+import { signInWithPopup } from 'firebase/auth';
+import { auth, provider } from '../utils/firebase.js';
+import axios from "axios"
+import { serverUrl } from '../App.jsx';
 
 function Auth() {
+
+  const handleGoogleAuth = async () => {
+    try {
+      const response = await signInWithPopup(auth,provider) // To open the concent screen while we signing in
+      const User = response.user // The response
+      const name = User.displayName // Get Name form response
+      const email = User.email  // Get email form response
+      // console.log(response);
+      const result = await axios.post(serverUrl + "/api/auth/google", {name,email}, {  // make requent for auth
+        withCredentials:true // So token in cookie is handled correctly
+      })
+      // console.log(result.data)
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <div className='min-h-screen overflow-hidden bg-white text-black px-8'>
         {/* HEADER */}
@@ -38,7 +59,8 @@ function Auth() {
               Unlock Smart <br/> AI Notes
             </h1>
 
-            <motion.button 
+            <motion.button  
+              onClick={handleGoogleAuth}
               whileHover={{ y: -10, scale: 1.07 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 200, damping: 18 }}
