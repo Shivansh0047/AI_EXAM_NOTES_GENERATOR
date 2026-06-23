@@ -14,7 +14,7 @@ export const googleAuth = async (req,res) => { // We need res as a parameter bec
         res.cookie("token",token, { // Sets cookie in browser, does not immediately send the response. Instead it modifies the response object by adding a header:
             httpOnly: true, // httpOnly prevents JavaScript from reading the cookie.
             secure:false, // so cookie is only sent over HTTPS.
-            sameSite: "strict",
+            sameSite: "lax",
             maxAge:7*24*60*60*1000
         })
         return res.status(200).json(user) // adds the response body and finally sends everything. (including cookie), .status() sets the HTTP status code of the response. Express automatically uses status 200 as ok.
@@ -26,7 +26,7 @@ export const googleAuth = async (req,res) => { // We need res as a parameter bec
 
 export const logOut = async (req,res) => { // To clear cookie
     try {
-        // await res.clearCookie("token") // This tells Express to send a response header that removes the cookie named "token" from the browser. Although not here, it is safer to delete the cookie in the save way we have created it
+        await res.clearCookie("token") // This tells Express to send a response header that removes the cookie named "token" from the browser. Although not here, it is safer to delete the cookie in the save way we have created it
         return res.status(200).json({ message: "Logged out successfully" });
     } catch (error) {
         return res.status(500).json({message:`LogoutError Error ${error}`})

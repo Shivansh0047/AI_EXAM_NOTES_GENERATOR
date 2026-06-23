@@ -5,8 +5,11 @@ import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../utils/firebase.js';
 import axios from "axios"
 import { serverUrl } from '../App.jsx';
+import { useDispatch } from 'react-redux';
+import { setUserData } from '../redux/userSlice.js';
 
 function Auth() {
+  const dispatch = useDispatch();
 
   const handleGoogleAuth = async () => {
     try {
@@ -19,7 +22,7 @@ function Auth() {
         withCredentials:true // So token in cookie is handled correctly
       })
       // console.log(result.data)
-      
+      dispatch(setUserData(result.data)) // add user data to redux state.
     } catch (error) {
       console.log(error)
     }
