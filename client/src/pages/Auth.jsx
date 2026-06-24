@@ -41,12 +41,15 @@ function Auth() {
             px-8 py-6
             shadow-[0_20px_45px_rgba(0,0,0,0.6)]"
         >
-          <h1 className='text-2xl font-bold bg-linear-to-r from-white via-gray-300 to-white bg-clip-text text-transparent'>
-            AI Notes Generator
-          </h1>
-          <p className='text-sm text-gray-300 mt-1'>
-            AI powered exam oriented notes & revision
-          </p>
+          <div> 
+            <h1 className='text-2xl font-bold bg-linear-to-r from-white via-gray-300 to-white bg-clip-text text-transparent'>
+              AI Notes Generator
+            </h1>
+            <p className='text-sm text-gray-300 mt-1'>
+              AI powered exam oriented notes & revision
+            </p>
+          </div>
+          
         </motion.header>
 
         {/* MAIN CONTENT */}

@@ -28,3 +28,5 @@
 
 23. Now we will start designing Home Page, first starting with NavBar. We will design NavBar using TailwindCss and HTML, we will also give a signout popup under probile , and connect it with the signout router we have made. For this , when user clicks on sigout , remove its data form redus state and also navigate it to auth page. Also make sure to add data to redux state during time of auth.
 24. Complete the homepage and also its footer.Add links for Notes, Home and Pricing pages.
+25. After that create the Notes page. We will be calling AI API form a form page but use it in notes page. So we have to declare states in Notes plage itself and pass it to Form page. We are basically creating states inside Notes and chaninge it in form file. After adding all the revalent boxes, we will now start making our AI API.
+26. We will make a controller for our AI APInin our server
