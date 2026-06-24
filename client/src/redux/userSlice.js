@@ -8,11 +8,16 @@ const userSlice = createSlice({
     reducers:{ // Through which we can update userdata
         setUserData:(state,action) => { // state represents the current snapshot of your user data in the store, action is an object delivered by your application. Whatever argument you pass into your function (like setUserData(userProfileData)) gets neatly attached to action.payload.
             state.userData = action.payload // If we perform any action on setUserData, the data given in payload will be set in userData
+        },
+        updateCredits:(state,action) => { // A reducer to update the user credits instantly
+            if(state.userData){
+                state.userData.credits = action.payload // set credit to updated credit value
+            }
         }
     }
 })
 
-export const {setUserData} = userSlice.actions
+export const {setUserData, updateCredits} = userSlice.actions
 export default userSlice.reducer;
 
 // Flow [ Incoming Data ]  ───►  setUserData(data)  ───►  [ Reducer Updates State ]  ───►  New Global State

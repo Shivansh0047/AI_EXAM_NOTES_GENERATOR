@@ -1,39 +1,54 @@
-import React, { useState } from 'react'
-import { motion } from 'motion/react'
+import React, { useState } from "react";
+import { motion } from "motion/react";
+import { generateNotes } from "../services/api";
+import { useDispatch } from "react-redux";
+import { updateCredits } from "../redux/userSlice";
 
 function TopicForm({ setResult, setLoading, loading, setError }) {
-  const [topic, setTopic] = useState("")
-  const [classLevel, setClassLevel] = useState("")
-  const [examType, setExamType] = useState("")
-  const [revisionMode, setRevisionMode] = useState(false)
-  const [includeDiagram, setIncludeDiagram] = useState(false)
-  const [includeChart, setIncludeChart] = useState(false)
+  const [topic, setTopic] = useState("");
+  const [classLevel, setClassLevel] = useState("");
+  const [examType, setExamType] = useState("");
+  const [revisionMode, setRevisionMode] = useState(false);
+  const [includeDiagram, setIncludeDiagram] = useState(false);
+  const [includeChart, setIncludeChart] = useState(false);
+  const dispatch = useDispatch()
 
   const handleSubmit = async () => {
+    // To send data to generate API
+    if (!topic.trim()) {
+      setError("Please enter the topic");
+      return;
+    }
+    setError("");
+    setLoading(true);
+    setResult(null);
     try {
-      setLoading(true)
-      setError("")
-
-      // API call here
-      const data = {
+      const result = await generateNotes({
         topic,
         classLevel,
         examType,
         revisionMode,
         includeDiagram,
-        includeChart
+        includeChart,
+      });
+      setResult(result.data);
+      setLoading(false);
+      setClassLevel("")
+      setTopic("")
+      setIncludeChart(false)
+      setRevisionMode(false)
+      setIncludeDiagram(false)
+
+      if(typeof result.creditsLeft === "number"){
+        dispatch(updateCredits(result.creditsLeft))
       }
 
-      console.log(data)
-
-      // Example
-      setResult(data)
-    } catch (err) {
-      setError(err.message || "Something went wrong")
-    } finally {
-      setLoading(false)
+    } catch (error) {
+      console.log(error);
+      setError("Failed to fetch notes from server");
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <motion.div
@@ -52,29 +67,29 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
     >
       <input
         type="text"
-        className='w-full p-3 rounded-xl bg-white/10 backdrop-blur-lg border border-white/20 placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-white/30'
-        placeholder='Enter topic (e.g. Web Development)'
+        className="w-full p-3 rounded-xl bg-white/10 backdrop-blur-lg border border-white/20 placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-white/30"
+        placeholder="Enter topic (e.g. Web Development)"
         onChange={(e) => setTopic(e.target.value)}
         value={topic}
       />
 
       <input
         type="text"
-        className='w-full p-3 rounded-xl bg-white/10 backdrop-blur-lg border border-white/20 placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-white/30'
-        placeholder='Class / Level (e.g. Class 10)'
+        className="w-full p-3 rounded-xl bg-white/10 backdrop-blur-lg border border-white/20 placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-white/30"
+        placeholder="Class / Level (e.g. Class 10)"
         onChange={(e) => setClassLevel(e.target.value)}
         value={classLevel}
       />
 
       <input
         type="text"
-        className='w-full p-3 rounded-xl bg-white/10 backdrop-blur-lg border border-white/20 placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-white/30'
-        placeholder='Exam Type (e.g. CBSE, JEE, NEET)'
+        className="w-full p-3 rounded-xl bg-white/10 backdrop-blur-lg border border-white/20 placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-white/30"
+        placeholder="Exam Type (e.g. CBSE, JEE, NEET)"
         onChange={(e) => setExamType(e.target.value)}
         value={examType}
       />
 
-      <div className='flex flex-col md:flex-row gap-6'>
+      <div className="flex flex-col md:flex-row gap-6">
         <Toggle
           label="Exam Revision Mode"
           checked={revisionMode}
@@ -109,35 +124,35 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
         {loading ? (
           <>
             <div className="w-5 h-5 border-2 border-gray-600 border-t-transparent rounded-full animate-spin" />
-            Generating...
+            Generating (This may take a minute)...
           </>
         ) : (
           "Generate Notes"
         )}
       </motion.button>
     </motion.div>
-  )
+  );
 }
 
 function Toggle({ label, checked, onChange }) {
   return (
     <div
-      className='flex items-center gap-4 cursor-pointer select-none'
+      className="flex items-center gap-4 cursor-pointer select-none"
       onClick={onChange}
     >
       <motion.div
         animate={{
           backgroundColor: checked
             ? "rgba(34,197,94,0.35)"
-            : "rgba(255,255,255,0.15)"
+            : "rgba(255,255,255,0.15)",
         }}
         transition={{ duration: 0.25 }}
-        className='relative w-12 h-6 rounded-full border border-white/20 backdrop-blur-lg'
+        className="relative w-12 h-6 rounded-full border border-white/20 backdrop-blur-lg"
       >
         <motion.div
           layout
           transition={{ type: "spring", stiffness: 500, damping: 30 }}
-          className='absolute top-0.5 h-5 w-5 rounded-full bg-white shadow-[0_5px_15px_rgba(0,0,0,0.5)]'
+          className="absolute top-0.5 h-5 w-5 rounded-full bg-white shadow-[0_5px_15px_rgba(0,0,0,0.5)]"
           style={{
             left: checked ? "1.6rem" : "0.25rem",
           }}
@@ -152,7 +167,7 @@ function Toggle({ label, checked, onChange }) {
         {label}
       </span>
     </div>
-  )
+  );
 }
 
-export default TopicForm
+export default TopicForm;

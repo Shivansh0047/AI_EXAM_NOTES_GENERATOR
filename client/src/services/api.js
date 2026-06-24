@@ -16,3 +16,14 @@ export const getCurrentUser = async (dispatch) => {
 }
 
 // React Redux hooks to let React components interact with the Redux store. We can read data from the store with useSelector, and dispatch actions using useDispatch
+
+export const generateNotes = async (payload) => { // We have to ned data when calling this function
+    try {
+        const result = await axios.post(serverUrl+"/api/notes/generate-notes", payload, {withCredentials:true})
+        console.log(result.data);
+        return result.data
+    } catch (error) {
+        console.log(error);
+        
+    }
+}

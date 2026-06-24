@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
     },
     notes:{
         type: [mongoose.Schema.Types.ObjectId], // we will create a model for notes to use in user ,mongoose.Schema.Types.ObjectId will tell mongoose instead of storing the entire note inside the user document, MongoDB stores only its _id, in array because there can be multiple notes
-        ref:"Notes",
+        ref:"Notes", // The ref: "Notes" is just the model name as a string. We do not need to import notes model. Mongoose will look up the model when you use push().
         default:[]
     }
 }, {timestamps:true}) // timestamps true so we know that when DB is created or updated
