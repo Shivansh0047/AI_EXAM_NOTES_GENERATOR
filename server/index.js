@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser"
 import cors from "cors" // for maintaining conectivity between forntend and backend
 import userRouter from "./routes/user.route.js"
 import notesRouter from "./routes/generate.route.js"
+import pdfRouter from "./routes/pdf.route.js"
 dotenv.config() // inject .env in index.js itself so we dont have to use it anywhere else
 
 
@@ -29,6 +30,7 @@ app.get("/",(req,res) => {
 app.use("/api/auth", authRouter)
 app.use("/api/user", userRouter)
 app.use("/api/notes", notesRouter)
+app.use("/api/pdf", pdfRouter)
 
 app.listen(PORT, () =>{
     console.log(`Server running on port ${PORT}`)

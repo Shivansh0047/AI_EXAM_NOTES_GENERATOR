@@ -38,4 +38,4 @@
 
 * Flow of notes page - we are declaring parameters in Notes page, setting them using their setter functions in TopicForm.jsx and then again using them in Notes page to Display using their original values.
 
-31. Now we will make a controller in server for downloading PDF
+31. Now we will make a controller in server for downloading PDF. We will be using pdfkit package for this. Make route for this in routes and API in index.js. Then fetch this api in frontend, also add result as well. We cold optinally do better parsing of the PDF as well.
