@@ -8,7 +8,7 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
   const [topic, setTopic] = useState("");
   const [classLevel, setClassLevel] = useState("");
   const [examType, setExamType] = useState("");
-  const [revisionMode, setRevisionMode] = useState(false);
+  const [revisionMode, setRevisionMode] = useState(false); // If revison Model is False, noets will be detailed.
   const [includeDiagram, setIncludeDiagram] = useState(false);
   const [includeChart, setIncludeChart] = useState(false);
   const dispatch = useDispatch()
@@ -45,7 +45,7 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
 
     } catch (error) {
       console.log(error);
-      setError("Failed to fetch notes from server");
+      setError("Failed to fetch notes from server, Please try After some time");
       setLoading(false);
     }
   };

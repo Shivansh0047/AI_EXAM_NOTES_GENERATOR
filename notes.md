@@ -32,4 +32,10 @@
 26. We will make a controller for our AI API in our server. First we will make prompt for our API. We will use mermaid package in frontend for generaating proper graphs. First we will create a prompt, and then send that prompt to Gemini API. We will start by setting up gemini in services folder, then we will write controller for notes generator. From the controller we will generate a valid prompt and send it to gemini in services to get a response. Also in the controller we will reduce the current credits. We also need to make a notes model because we want to save it in DB. Make sure to use correct API calling cuntion as it is updated.
 27. Make route for new API and also create API in index.js. We will fetch this API in fromtend and get our result which we will wilplay in the frontend.
 28. In seervies/api in client, make function to fetch API data. In topic form we will call this function which fetches this API , also send it data. Then we will use this data in our notes.jsx and display it. After setting everyting up, check is we are gettingg response or not.
-29. Now to show data in frontend, we will use mermaid and markdown package. We could also optinally add a progress Bar as well if we want to. Also add another reduces in frontend so we can easily instantly update and show credits left
+29. Now to show data in frontend, we will use mermaid and markdown package. We could also optinally add a progress Bar as well if we want to. Also add another reduces in frontend so we can easily instantly update and show credits left.
+30. Now we will make a sidebar which can show all the notes that we have generated and also we have to make component which will properly display the final result.
+31. For displaying final result, we will use reach-markdown package which can read and modify HIML elements. This package will help to make all the notes in proper md component. Similarly we will use rechart and mermaid for showing chart and diagrams respectively.
+
+* Flow of notes page - we are declaring parameters in Notes page, setting them using their setter functions in TopicForm.jsx and then again using them in Notes page to Display using their original values.
+
+31. Now we will make a controller in server for downloading PDF
