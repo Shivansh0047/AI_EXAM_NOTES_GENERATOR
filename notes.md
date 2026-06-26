@@ -34,8 +34,10 @@
 28. In seervies/api in client, make function to fetch API data. In topic form we will call this function which fetches this API , also send it data. Then we will use this data in our notes.jsx and display it. After setting everyting up, check is we are gettingg response or not.
 29. Now to show data in frontend, we will use mermaid and markdown package. We could also optinally add a progress Bar as well if we want to. Also add another reduces in frontend so we can easily instantly update and show credits left.
 30. Now we will make a sidebar which can show all the notes that we have generated and also we have to make component which will properly display the final result.
-31. For displaying final result, we will use reach-markdown package which can read and modify HIML elements. This package will help to make all the notes in proper md component. Similarly we will use rechart and mermaid for showing chart and diagrams respectively.
+31. For displaying final result, we will use reach-markdown package which can read and modify HIML elements. This package will help to make all the notes in proper md component. Similarly we will use rechart and mermaid for showing chart and diagrams respectively. W can/cannot use autofing to fix mermaid labels.
 
 * Flow of notes page - we are declaring parameters in Notes page, setting them using their setter functions in TopicForm.jsx and then again using them in Notes page to Display using their original values.
 
-31. Now we will make a controller in server for downloading PDF. We will be using pdfkit package for this. Make route for this in routes and API in index.js. Then fetch this api in frontend, also add result as well. We cold optinally do better parsing of the PDF as well.
+31. Now we will make a controller in server for downloading PDF. We will be using pdfkit package for this. Make route for this in routes and API in index.js. Then fetch this api in frontend, also add result as well. We cold optinally do better parsing of the PDF as well. We are finally done with showing of data.
+32. Now we will configure Your Notes button which will show all our notes and display their results. We will first make a controller which well get our notes. We will make a sidebar which will display all of our notes, and when we click on any of them, it will display those notes in the main area. Make routes as required (we are making in generate router).
+33. Start designing the history page with these sidebars and routes. If we want to remove scroll bar, we can do it in index.js

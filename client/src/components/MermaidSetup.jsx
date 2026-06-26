@@ -24,16 +24,46 @@ const cleanMermaidChart = (diagram) => {
     return clean;
 };
 
-// Automatically adds unique IDs (N1, N2, ...) to standalone Mermaid nodes like [Start]
-// so they become valid Mermaid syntax: N1[Start], N2[Login], etc.
-const autoFixBadNotes = (diagram) => {
-    let index=0;
-    return diagram.replace(/\[(.*?)\]/g,(_,label) => {
-        index++;
-        return `N${index}[${label}]`;
-    })
-}
 
+// Convert labels like [Node Name] into unique Mermaid node IDs while reusing IDs for duplicate labels.
+const autoFixNotes = (diagram) => {
+  // Counter used to generate unique node IDs
+  let index = 0;
+
+  // Stores already-created nodes
+  // Key   = node label
+  // Value = generated Mermaid node string
+  const used = new Map();
+
+  // Find all text inside square brackets
+  return diagram.replace(/\[(.*?)\]/g, (match, label) => {
+
+    // Remove extra spaces from label
+    const key = label.trim();
+
+    // If this label already exists,
+    // reuse the same node instead of creating a new one
+    if (used.has(key)) {
+      return used.get(key);
+    }
+
+    // Generate new node ID
+    index++;
+
+    // Example:
+    // N1["Introduction"]
+    // N2["Database"]
+    const id = `N${index}`;
+
+    // Mermaid node format
+    const node = `${id}["${key}"]`;
+
+    // Save for future reuse
+    used.set(key, node);
+
+    return node;
+  });
+};
 function MermaidSetup({ diagram }) {
     // Reference to the div where Mermaid SVG will be injected, when we change containerRef, the div below which has this ref will chnage
     const containerRef = useRef(null);
@@ -53,7 +83,7 @@ function MermaidSetup({ diagram }) {
                     .substring(2, 9)}`;
 
                 // Sanitize Mermaid text before rendering
-                const safeChart = autoFixBadNotes(cleanMermaidChart(diagram));
+                const safeChart = autoFixNotes(cleanMermaidChart(diagram));
 
                 // Convert Mermaid syntax into SVG
                 const { svg } = await mermaid.render(
