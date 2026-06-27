@@ -1,7 +1,5 @@
 import Stripe from "stripe";
 import UserModel from "../models/user.model.js"
-import dotenv from 'dotenv'; // NOTE - import and configure dotenv here as well import statements are hoisted and evaluated before the code in your files actually runs. If credits.controller.js is being 
-dotenv.config(); // imported or required by a module that gets initialized before the index.js logic fully processes your environment variables, the process.env object will be empty or incomplete when the Stripe constructor runs.
 
 // Initialize Stripe using secret key from .env
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
