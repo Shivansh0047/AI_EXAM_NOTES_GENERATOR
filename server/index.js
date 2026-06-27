@@ -15,8 +15,8 @@ dotenv.config() // inject .env in index.js itself so we dont have to use it anyw
 const app = express()
 
 app.post( // rpute for webhook, defined before json parser
-    "api/credits/webhook",
-    express.raw({type:"application.json"}), stripeWebhook
+    "/api/credits/webhook",
+    express.raw({type:"application/json"}), stripeWebhook
 )
 
 app.use(cors(
