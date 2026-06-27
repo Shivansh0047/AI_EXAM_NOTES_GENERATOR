@@ -7,6 +7,8 @@ import Notes from './pages/Notes.jsx'
 import Pricing from './pages/Pricing.jsx'
 import { getCurrentUser } from './services/api.js'
 import { useDispatch, useSelector } from 'react-redux'
+import PaymentSuccess from './pages/PaymentSuccess.jsx'
+import PaymentFailed from './pages/PaymentFailed.jsx'
 export const serverUrl = "http://localhost:8000" // where server is, remomber we have alloweed cors to reverive req fomr frontend
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
       <Route path='/history' element={userData? <History/>:<Navigate to="/auth" replace/>}/>
       <Route path='/notes' element={userData? <Notes/>:<Navigate to="/auth" replace/>}/>
       <Route path='/pricing' element={userData? <Pricing/>:<Navigate to="/auth" replace/>}/>
+      <Route path='/payment-success' element={<PaymentSuccess/>}/>
+      <Route path='/payment-failed' element={<PaymentFailed/>}/>
     </Routes>
   )
 }

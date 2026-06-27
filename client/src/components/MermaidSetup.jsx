@@ -25,6 +25,8 @@ const cleanMermaidChart = (diagram) => {
 };
 
 
+
+
 // Convert labels like [Node Name] into unique Mermaid node IDs while reusing IDs for duplicate labels.
 const autoFixNotes = (diagram) => {
   // Counter used to generate unique node IDs

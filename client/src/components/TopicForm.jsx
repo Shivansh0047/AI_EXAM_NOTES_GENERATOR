@@ -45,7 +45,7 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
 
     } catch (error) {
       console.log(error);
-      setError("Failed to fetch notes from server, Please try After some time");
+      setError("Failed to fetch notes from server, Please try After some time, also Make Sure to have Enough Credits");
       setLoading(false);
     }
   };
