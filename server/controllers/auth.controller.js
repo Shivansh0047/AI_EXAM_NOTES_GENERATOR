@@ -13,8 +13,9 @@ export const googleAuth = async (req,res) => { // We need res as a parameter bec
         let token = await getToken(user._id) // Generate JWT token using user id.
         res.cookie("token",token, { // Sets cookie in browser, does not immediately send the response. Instead it modifies the response object by adding a header:
             httpOnly: true, // httpOnly prevents JavaScript from reading the cookie.
-            secure:false, // so cookie is only sent over HTTPS.
-            sameSite: "lax",
+            secure:true, // so cookie is only sent over HTTPS. false when we are developing
+            sameSite: "none", // "lax" when we are developing
+            path: "/",
             maxAge:7*24*60*60*1000
         })
         return res.status(200).json(user) // adds the response body and finally sends everything. (including cookie), .status() sets the HTTP status code of the response. Express automatically uses status 200 as ok.
