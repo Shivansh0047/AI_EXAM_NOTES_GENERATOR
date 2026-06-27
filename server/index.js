@@ -20,7 +20,7 @@ app.post( // rpute for webhook, defined before json parser
 )
 
 app.use(cors(
-    {origin: "http://localhost:5173", // req form which url (in our case forntend), only this url req is allowed
+    {origin: "https://ai-exam-notes-generatorcilent.onrender.com", // req form which url (in our case forntend), only this url req is allowed
          credentials: true, // allows cookies
          methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"] // can use these methods
     }
