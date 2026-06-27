@@ -1,5 +1,6 @@
-import express from "express"
 import dotenv from "dotenv"
+dotenv.config() // inject .env in index.js itself so we dont have to use it anywhere else, an even better way would be to injext it in package.json start 
+import express from "express"
 import connectDb from "./utils/connectDb.js"
 import authRouter from "./routes/auth.route.js"
 import cookieParser from "cookie-parser"
@@ -9,7 +10,7 @@ import notesRouter from "./routes/generate.route.js"
 import pdfRouter from "./routes/pdf.route.js"
 import creditRouter from "./routes/credits.route.js"
 import { stripeWebhook } from "./controllers/credits.controller.js"
-dotenv.config() // inject .env in index.js itself so we dont have to use it anywhere else, an even better way would be to injext it in package.json start 
+
 
 
 const app = express()
