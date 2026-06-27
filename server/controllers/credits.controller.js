@@ -1,6 +1,7 @@
 import Stripe from "stripe";
 import UserModel from "../models/user.model.js"
-
+import dotenv from 'dotenv'; // NOTE - import and configure dotenv here as well import statements are hoisted and evaluated before the code in your files actually runs. If credits.controller.js is being 
+dotenv.config(); // imported or required by a module that gets initialized before the index.js logic fully processes your environment variables, the process.env object will be empty or incomplete when the Stripe constructor runs.
 // Initialize Stripe using secret key from .env
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -86,7 +87,7 @@ export const createCreditsOrder = async (req, res) => {
 // Stripe sends events to this endpoint whenever something happens, such as:Payment completed,Subscription created,Refund issued
 // Here we are only interested in: checkout.session.completed. This event is triggered when a user successfully completes payment.
 export const stripeWebhook = async (req, res) => {
-
+    console.log("DEBUG: Webhook secret is:", process.env.STRIPE_WEBHOOK_SECRET); // Debug statement
     // Stripe includes a signature header to verify that the request actually came from Stripe.
     const sig = req.headers["stripe-signature"];
     let event;
